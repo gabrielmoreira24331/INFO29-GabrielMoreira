@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "valida.h"
 #define TAM_ALUNO 50
 #define aluno_inexistente -1
 #define pessoa_inexistente -2
@@ -28,7 +28,7 @@ int atualiza_pessoa(int tamanho, pessoa pessoas[]);
 void listar_pessoas(int tamanho, pessoa pessoas[])
 {
     if (tamanho == 0)
-        printf("nenhuma pessoa cadastrada\n");
+        printf("Nenhuma pessoa cadastrada\n");
     printf("\n--------------------------------- LISTA DE PESSOAS --------------------------------------\n");
     for(int i = 0; i < tamanho; i++)
     {
@@ -80,16 +80,22 @@ void cadastrar_pessoa(int tamanho, pessoa pessoas[])
     printf("NOME: ");
     fgets(pessoas[tamanho].nome, 50, stdin);
     pessoas[tamanho].nome[strcspn(pessoas[tamanho].nome, "\n")] = '\0';
+    valida_nomeP(pessoas,tamanho);
     printf("MATRÍCULA: ");
     fgets(pessoas[tamanho].matricula, 50, stdin);
     pessoas[tamanho].matricula[strcspn(pessoas[tamanho].matricula, "\n")] = '\0';
+    valida_matricula(pessoas, tamanho);
     printf("DATA: ");
     fgets(pessoas[tamanho].data, 50, stdin);
     pessoas[tamanho].data[strcspn(pessoas[tamanho].data, "\n")] = '\0';
+    valida_nascimento(pessoas,tamanho);
     printf("CPF: ");
     fgets(pessoas[tamanho].cpf, 13, stdin);
     pessoas[tamanho].cpf[strcspn(pessoas[tamanho].cpf, "\n")] = '\0';
+    valida_cpf(pessoas,tamanho);
     printf("SEXO: ");
+    fgets(pessoas[tamanho].sexo, 13, stdin);
+    valida_nomeP(pessoas,tamanho);
     pessoas[tamanho].sexo = getchar();
     while (getchar() != '\n');
     for(int x = 0; x < TAM_ALUNO; x++)
@@ -110,6 +116,7 @@ int atualiza_pessoa(int tamanho, pessoa pessoas[])
     printf("Digite a matricula: ");
     fgets(matricula, 50, stdin);
     matricula[strcspn(matricula, "\n")] = '\0';
+    
     for(int i = 0; i < tamanho; i++)
     {
         if (strcmp(matricula, pessoas[i].matricula) == 0) 
@@ -126,7 +133,7 @@ int excluir_pessoa(int tamanho, pessoa pessoas[])
 {
     if (tamanho == 0)
     {
-        printf("nenhuma pessoa cadastrada");
+        printf("Nenhuma pessoa cadastrada\n");
         return vazio;
     }
     char matric[20];
