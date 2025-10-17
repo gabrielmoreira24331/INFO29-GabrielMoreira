@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "valida.h"
 #define TAM_ALUNO 50
 #define invalido -5
 #define pessoa_inexistente -2
@@ -53,18 +53,19 @@ int cadastrar_disciplina(int tamanho, disciplina disciplinas[], int p_tamanho, p
     printf("NOME: ");
     fgets(disciplinas[tamanho].nome, 50, stdin);
     disciplinas[tamanho].nome[strcspn(disciplinas[tamanho].nome, "\n")] = '\0';
-
+    valida_nomeD(disciplinas,tamanho);
     printf("Código: ");
     fgets(disciplinas[tamanho].codigo, 50, stdin);
     disciplinas[tamanho].codigo[strcspn(disciplinas[tamanho].codigo, "\n")] = '\0';
-
+    valida_codigo(disciplinas,tamanho);
     printf("Semestre: ");
     fgets(disciplinas[tamanho].semestre, 50, stdin);
     disciplinas[tamanho].semestre[strcspn(disciplinas[tamanho].semestre, "\n")] = '\0';
-
+    valida_semestre(disciplinas,tamanho);
     printf("Professor: ");
     fgets(disciplinas[tamanho].professor, 50, stdin);
     disciplinas[tamanho].professor[strcspn(disciplinas[tamanho].professor, "\n")] = '\0';
+    valida_professor(disciplinas,tamanho);
     
     for(int x = 0; x < p_tamanho; x++)
     {
@@ -120,23 +121,30 @@ int incluir_aluno(int tamanho, disciplina disciplinas[], int q_alunos, pessoa al
 
 int listar_disciplina(int tamanho, disciplina disciplinas[], int q_alunos, pessoa alunos[])
 {
-    printf("---------------- Lista de disciplinas ------------------\n");
-    for(int x = 0; x < tamanho; x++)
-    {
-        printf("Displina: %s\n", disciplinas[x].nome);
-        printf("Professor: %s\n", disciplinas[x].professor);
-        printf("Código: %s\n", disciplinas[x].codigo);
-        printf("Alunos:\n");
-        for(int y = 0; y < q_alunos; y++)
-        {
-            if (alunos[y].cursando[x] == 1)
-            {
-                printf("%s - %s\n", alunos[y].nome, alunos[y].matricula);
-            }
-        }
-        printf("\n");
+    if(tamanho == 0){
+        printf("Lista vazia");
     }
-    printf("--------------------------------------------------------\n");
+    else{
+        printf("---------------- Lista de disciplinas ------------------\n");
+   
+        for(int x = 0; x < tamanho; x++)
+        {
+            printf("Displina: %s\n", disciplinas[x].nome);
+            printf("Professor: %s\n", disciplinas[x].professor);
+            printf("Código: %s\n", disciplinas[x].codigo);
+            printf("Alunos:\n");
+            for(int y = 0; y < q_alunos; y++)
+            {
+                if (alunos[y].cursando[x] == 1)
+                {
+                    printf("%s - %s\n", alunos[y].nome, alunos[y].matricula);
+                }
+            }
+            printf("\n");
+        }
+        printf("--------------------------------------------------------\n");
+    }
+    
     return 0;
 }
 
@@ -148,14 +156,14 @@ int excluir_disciplina(int tamanho, disciplina disciplinas[], int q_alunos, pess
 
     if (tamanho == 0)
     {
-        printf("nenhuma pessoa disciplina cadastrada");
+        printf("Nenhuma pessoa disciplina cadastrada\n");
         return vazio;
     }
 
     printf("Digite o código da disciplina: ");
     fgets(codigo, 20, stdin);
     codigo[strcspn(codigo, "\n")] = '\0';
-  
+    valida_codigo(disciplinas,tamanho);
     for(int i = 0; i < tamanho; i++)
     {
         if(strcmp(disciplinas[i].codigo, codigo) == 0)
@@ -195,6 +203,7 @@ int atualizar_disciplina(int tamanho, disciplina disciplinas[], int q_professore
     printf("Digite o código da disciplina: ");
     fgets(codigo, 20, stdin);
     codigo[strcspn(codigo, "\n")] = '\0';
+    valida_codigo(disciplinas,tamanho);
 
     for(int i = 0; i < tamanho; i++)
     {
