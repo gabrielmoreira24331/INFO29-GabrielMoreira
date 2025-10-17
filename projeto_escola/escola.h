@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "valida.h"
 
 #define TAM_ALUNO 50
 #define aluno_inexistente -1
@@ -13,13 +14,13 @@ typedef struct
     char nome[TAM_ALUNO];
     char matricula[TAM_ALUNO];
     char sexo;
-    char data[TAM_ALUNO];
+    char data[TAM_ALUNO]; 
     char cpf[TAM_ALUNO];
     int cursando[TAM_ALUNO];
 } pessoa;
 
-char menugeral(void);
-char menu_pessoa(char tipo[]);
+int menugeral(void);
+int menu_pessoa(char tipo[]);
 void cadastrar_pessoa(int posicao, pessoa pessoas[]);
 void listar_pessoas(int tamanho, pessoa pessoas[]);
 int excluir_pessoa(int tamanho, pessoa pessoas[]);
@@ -39,9 +40,9 @@ void listar_pessoas(int tamanho, pessoa pessoas[])
     printf("--------------------------------------------------------------------------------------------\n");  
 }
 
-char menugeral(void)
+int menugeral(void)
 {
-    char resposta;
+    int resposta;
 
     printf("\n-------- MENU GERAL --------\n");
     printf("[0] - Sair\n");
@@ -51,14 +52,14 @@ char menugeral(void)
     printf("[4] - Relatórios\n");
     printf("----------------------------\n");
     printf("Opção: ");
-    resposta = getchar();
+    scanf("%d", &resposta);
     while (getchar() != '\n');
     return resposta;
 }
 
-char menu_pessoa(char tipo[])
+int menu_pessoa(char tipo[])
 {
-    char resposta;
+    int resposta;
 
     printf("\n---------- %s ----------\n", tipo);
     printf("[0] - Voltar\n");
@@ -68,7 +69,7 @@ char menu_pessoa(char tipo[])
     printf("[4] - Excluir %s\n", tipo);
     printf("----------------------------\n");
     printf("Opção: ");
-    resposta = getchar();
+    scanf("%d", &resposta);
     while (getchar() != '\n');
     return resposta;
 
@@ -77,21 +78,38 @@ char menu_pessoa(char tipo[])
 void cadastrar_pessoa(int tamanho, pessoa pessoas[])
 {
     printf("\n---------- CADASTRAR ----------\n");
-    printf("NOME: ");
-    fgets(pessoas[tamanho].nome, 50, stdin);
-    pessoas[tamanho].nome[strcspn(pessoas[tamanho].nome, "\n")] = '\0';
-    printf("MATRÍCULA: ");
-    fgets(pessoas[tamanho].matricula, 50, stdin);
-    pessoas[tamanho].matricula[strcspn(pessoas[tamanho].matricula, "\n")] = '\0';
-    printf("DATA: ");
-    fgets(pessoas[tamanho].data, 50, stdin);
-    pessoas[tamanho].data[strcspn(pessoas[tamanho].data, "\n")] = '\0';
-    printf("CPF: ");
-    fgets(pessoas[tamanho].cpf, 13, stdin);
-    pessoas[tamanho].cpf[strcspn(pessoas[tamanho].cpf, "\n")] = '\0';
-    printf("SEXO: ");
-    pessoas[tamanho].sexo = getchar();
-    while (getchar() != '\n');
+    do {
+        printf("NOME: ");
+        fgets(pessoas[tamanho].nome, 50, stdin);
+        pessoas[tamanho].nome[0] = toupper(pessoas[tamanho].nome[0]);
+        pessoas[tamanho].nome[strcspn(pessoas[tamanho].nome, "\n")] = '\0';
+    } while (!validar_nome(pessoas[tamanho].nome));
+
+    do {
+        printf("MATRICULA: ");
+        fgets(pessoas[tamanho].matricula, 50, stdin);
+        pessoas[tamanho].matricula[strcspn(pessoas[tamanho].matricula, "\n")] = '\0';
+    } while (!validar_matricula(pessoas[tamanho].matricula));
+
+    do {
+        printf("DATA (DD/MM/AAAA): ");
+        fgets(pessoas[tamanho].data, 50, stdin);
+        pessoas[tamanho].data[strcspn(pessoas[tamanho].data, "\n")] = '\0';
+    } while (!validar_data(pessoas[tamanho].data));
+
+    do {
+        printf("CPF (somente números): ");
+        fgets(pessoas[tamanho].cpf, 13, stdin);
+        pessoas[tamanho].cpf[strcspn(pessoas[tamanho].cpf, "\n")] = '\0';
+    } while (!validar_cpf(pessoas[tamanho].cpf));
+
+    do {
+        printf("SEXO (M/F): ");
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF); // limpa buffer
+        pessoas[tamanho].sexo = getchar();
+    } while (!validar_sexo(pessoas[tamanho].sexo));
+
     for(int x = 0; x < TAM_ALUNO; x++)
     {
         pessoas[tamanho].cursando[x] = 0;

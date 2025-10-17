@@ -21,16 +21,16 @@ typedef struct
    
 } disciplina;
 
-char menu_disciplina(void);
+int menu_disciplina(void);
 int cadastrar_disciplina(int tamanho, disciplina disciplinas[], int p_tamanho, pessoa professores[]);
 int listar_disciplina(int tamanho, disciplina disciplinas[], int q_alunos, pessoa alunos[]);
 int excluir_disciplina(int tamanho, disciplina disciplinas[], int q_alunos, pessoa alunos[]);
 int atualizar_disciplina(int tamanho, disciplina disciplinas[], int q_professores, pessoa professores[]);
 
 
-char menu_disciplina(void)
+int menu_disciplina(void)
 {
-    char resposta;
+    int resposta;
 
     printf("\n---------- DISCIPLINAS ----------\n");
     printf("[0] - Voltar\n");
@@ -42,7 +42,7 @@ char menu_disciplina(void)
     printf("[6] - Excluir Aluno\n");
     printf("-----------------------------------\n");
     printf("Opção: ");
-    resposta = getchar();
+    scanf("%d", &resposta);
     while (getchar() != '\n');
     return resposta;
 }
@@ -50,19 +50,29 @@ char menu_disciplina(void)
 int cadastrar_disciplina(int tamanho, disciplina disciplinas[], int p_tamanho, pessoa professores[])
 {
     printf("\n---------- CADASTRAR ----------\n");
-    printf("NOME: ");
-    fgets(disciplinas[tamanho].nome, 50, stdin);
-    disciplinas[tamanho].nome[strcspn(disciplinas[tamanho].nome, "\n")] = '\0';
+    
+    do{
+        printf("NOME: ");
+        fgets(disciplinas[tamanho].nome, 50, stdin);
+        disciplinas[tamanho].nome[strcspn(disciplinas[tamanho].nome, "\n")] = '\0';
+    }
+    while (!validar_nome(disciplinas[tamanho].nome));
 
-    printf("Código: ");
-    fgets(disciplinas[tamanho].codigo, 50, stdin);
-    disciplinas[tamanho].codigo[strcspn(disciplinas[tamanho].codigo, "\n")] = '\0';
+    do{
+        printf("Código: ");
+        fgets(disciplinas[tamanho].codigo, 50, stdin);
+        disciplinas[tamanho].codigo[strcspn(disciplinas[tamanho].codigo, "\n")] = '\0';
+    }
+    while(!validar_codigo(disciplinas[tamanho].codigo));
 
-    printf("Semestre: ");
-    fgets(disciplinas[tamanho].semestre, 50, stdin);
-    disciplinas[tamanho].semestre[strcspn(disciplinas[tamanho].semestre, "\n")] = '\0';
+    do{
+        printf("Semestre: ");
+        fgets(disciplinas[tamanho].semestre, 50, stdin);
+        disciplinas[tamanho].semestre[strcspn(disciplinas[tamanho].semestre, "\n")] = '\0';
+    }
+    while(!validar_semestre(disciplinas[tamanho].semestre));
 
-    printf("Professor: ");
+    printf("Matricula do professor: ");
     fgets(disciplinas[tamanho].professor, 50, stdin);
     disciplinas[tamanho].professor[strcspn(disciplinas[tamanho].professor, "\n")] = '\0';
     

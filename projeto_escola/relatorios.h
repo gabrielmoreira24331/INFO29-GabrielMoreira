@@ -38,7 +38,7 @@ int menu_relatorio(void)
 
 void exibir_disciplinas(int tamanho, disciplina disciplinas[])
 {   
-    printf("\nDisciplinas: ");
+    printf("\nDisciplinas: \n");
     for(int x = 0; x < tamanho; x++)
     {
         printf("%s - %s\n", disciplinas[x].nome, disciplinas[x].codigo);

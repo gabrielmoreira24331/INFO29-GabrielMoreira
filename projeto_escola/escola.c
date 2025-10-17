@@ -32,33 +32,33 @@ int main(void)
 
         switch(opcao)
         {
-            case '0':{
+            case 0:{
                 sair = 1;
                 break;
             }
-            case '1':{
+            case 1:{
                 while (!sair_menu)
                 {
                     opcao_menu = menu_pessoa("Aluno");
 
                     switch(opcao_menu)
                     {
-                        case '0':
+                        case 0:
                         {
                             sair_menu = 1;
                             break;
                         }
-                        case '1':
+                        case 1:
                         {
                             cadastrar_pessoa(q_alunos, alunos);
                             q_alunos++;
                             break;
                         }
-                        case '2':{
+                        case 2:{
                             listar_pessoas(q_alunos, alunos);
                             break;
                         }
-                        case '3':{
+                        case 3:{
                             
                             atualiza = atualiza_pessoa(q_alunos, alunos);
                         
@@ -72,7 +72,7 @@ int main(void)
                             }
                             break;
                         }
-                        case '4':{
+                        case 4:{
                             retorno = excluir_pessoa(q_alunos, alunos);
                             
                             if (retorno == excluido)
@@ -82,6 +82,7 @@ int main(void)
                             }
                             else if(retorno == pessoa_inexistente)
                                 printf("Aluno não existe ou a matrícula foi digida incorretamente\n");
+                            break;
                         }
 
                     }
@@ -90,29 +91,29 @@ int main(void)
                 break;
             }
             
-            case '2':{
+            case 2:{
                  while (!sair_menu)
                 {
                     opcao_menu = menu_pessoa("Professor");
 
                     switch(opcao_menu)
                     {
-                        case '0':
+                        case 0:
                         {
                             sair_menu = 1;
                             break;
                         }
-                        case '1':
+                        case 1:
                         {
                             cadastrar_pessoa(q_professor, professores);
                             q_professor++;
                             break;
                         }
-                        case '2':{
+                        case 2:{
                             listar_pessoas(q_professor, professores);
                             break;
                         }
-                        case '3':{
+                        case 3:{
                             
                             atualiza = atualiza_pessoa(q_professor, professores);
                         
@@ -126,7 +127,7 @@ int main(void)
                             }
                             break;
                         }
-                        case '4':{
+                        case 4:{
                             int retorno = excluir_pessoa(q_professor, professores);
                             
                             if (retorno == excluido)
@@ -136,6 +137,7 @@ int main(void)
                             }
                             else if(retorno == pessoa_inexistente)
                                 printf("professor não existe ou a matrícula foi digida incorretamente\n");
+                            break;
                         }
 
                     }
@@ -145,7 +147,7 @@ int main(void)
 
                
             }
-            case '3':{
+            case 3:{
                 printf("Disciplinas\n");
                 while(!sair_menu)
                 {
@@ -153,11 +155,11 @@ int main(void)
 
                     switch(opcao_menu)
                     {
-                        case '0':{
+                        case 0:{
                             sair_menu = 1;
                             break;
                         }
-                        case '1':{
+                        case 1:{
                             int dp = cadastrar_disciplina(q_disciplina, disciplinas, q_professor, professores);
                             if (dp == invalido)
                             {
@@ -169,15 +171,15 @@ int main(void)
                             }
                             break;
                         }
-                        case '2':{
+                        case 2:{
                             int lista_dp = listar_disciplina(q_disciplina, disciplinas, q_alunos, alunos);
                             break;
                         }
-                        case '3':{
+                        case 3:{
                             int atualizar_dp = atualizar_disciplina(q_disciplina, disciplinas, q_professor, professores);
                             break;
                         }
-                        case '4':{
+                        case 4:{
                             int excluir_dp = excluir_disciplina(q_disciplina, disciplinas, q_alunos, alunos);
 
                             if (excluir_dp == vazio)
@@ -195,11 +197,11 @@ int main(void)
                             q_disciplina--;
                             break;
                         }
-                        case '5':{
+                        case 5:{
                             int incluir = incluir_aluno(q_disciplina, disciplinas, q_alunos, alunos);
                             break;
                         }
-                        case '6':{
+                        case 6:{
                             int excluir = excluir_aluno(q_disciplina, disciplinas, q_alunos, alunos);
                             break;
                         }
@@ -207,7 +209,7 @@ int main(void)
                 }
                 break;
             }
-            case '4':{
+            case 4:{
                 while (!sair_menu)
                 {
                     opcao_menu = menu_relatorio();
