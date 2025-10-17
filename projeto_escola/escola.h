@@ -90,6 +90,7 @@ void cadastrar_pessoa(int tamanho, pessoa pessoas[])
     fgets(pessoas[tamanho].cpf, 13, stdin);
     pessoas[tamanho].cpf[strcspn(pessoas[tamanho].cpf, "\n")] = '\0';
     printf("SEXO: ");
+    fgets(pessoas[tamanho].sexo, 2, stdin);
     pessoas[tamanho].sexo = getchar();
     while (getchar() != '\n');
     for(int x = 0; x < TAM_ALUNO; x++)
