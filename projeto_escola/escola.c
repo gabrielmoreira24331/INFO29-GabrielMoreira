@@ -23,8 +23,6 @@ int main(void)
     int retorno = 0;
     int atualiza = 0;
 
-    preencher_dados_teste(alunos, &q_alunos, professores, &q_professor, disciplinas, &q_disciplina);
-
     while (!sair)
     {
         opcao = menugeral();
