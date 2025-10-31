@@ -20,20 +20,20 @@
 //renomeie o arquivo do include abaixo para trabalho1.h
 #include "trabalho1.h"
 
-void testSomar();    //função utilizada para testes
-void testFatorial(); //função utilizada para testes
+// void testSomar();    //função utilizada para testes
+// void testFatorial(); //função utilizada para testes
 void testQ1();
-void testQ2();
-void testQ3();
-void testQ4();
-void testQ5();
-void testQ6();
-void testQ7();
+// void testQ2();
+// void testQ3();
+// void testQ4();
+// void testQ5();
+// void testQ6();
+// void testQ7();
 
 int main()
 {
-    //testSomar();
-    //testFatorial();
+    // testSomar();
+    // testFatorial();
     testQ1();
     testQ2();
     testQ3();

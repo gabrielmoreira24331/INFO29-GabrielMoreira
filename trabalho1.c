@@ -10,10 +10,10 @@
 //  O aluno deve preencher seus dados abaixo, e implementar as questões do trabalho
 
 //  ----- Dados do Aluno -----
-//  Nome:
-//  email:
-//  Matrícula:
-//  Semestre:
+//  Nome: Gabriel Moreira Lima
+//  email: 20251160039@ifba.edu.br
+//  Matrícula: 20251160039
+//  Semestre: 2
 
 //  Copyright © 2016 Renato Novais. All rights reserved.
 // Última atualização: 07/05/2021 - 19/08/2016 - 17/10/2025
@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include "trabalho1.h" 
 #include <stdlib.h>
+#include <string.h>
 
 DataQuebrada quebraData(char data[]);
 
@@ -91,17 +92,32 @@ int teste(int a)
  */
 int q1(char data[])
 {
-  int datavalida = 1;
+    int datavalida = 1;
+    DataQuebrada datas; 
 
-  //quebrar a string data em strings sDia, sMes, sAno
+    //quebrar a string data em strings sDia, sMes, sAno
+    datas = quebraData(data);
 
+    //printf("%s\n", data);
+    if (datas.iMes < 1 || datas.iMes > 12 || datas.iAno < 10 || datas.iAno > 9999 || datas.iDia < 1 || datas.iDia > 31) 
+        return 0;
+    if (datas.iMes == 4 || datas.iMes == 6 || datas.iMes == 9 || datas.iMes == 11 && datas.iDia > 30)
+        return 0;
+    if ((datas.iAno % 4) != 0 || (datas.iAno % 4) == 0 && (datas.iAno % 100) == 0 && (datas.iAno % 400) != 0)
+    {
+        if(datas.iMes == 2 && datas.iDia > 28)
+            return 0;
+    }
+    else
+    {
+        if(datas.iMes == 2 && datas.iDia > 29)
+            return 0;
+    }
 
-  //printf("%s\n", data);
-
-  if (datavalida)
-      return 1;
-  else
-      return 0;
+    if (datavalida)
+        return 1;
+    else
+        return 0;
 }
 
 
@@ -293,3 +309,14 @@ DataQuebrada quebraData(char data[]){
   return dq;
 }
 
+// int main(void)
+// {
+//     char data[50];
+//     int resposta = 0;
+//     printf("digite uma data: ");
+//     scanf("%s", &data);
+//     resposta = q1(data);
+//     //printf("%d\n", resposta);
+   
+   
+// }
