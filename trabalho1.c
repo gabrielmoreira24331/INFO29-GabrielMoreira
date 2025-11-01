@@ -99,6 +99,8 @@ int q1(char data[])
     datas = quebraData(data);
 
     //printf("%s\n", data);
+    if (datas.valido == 0)
+        return 0;
     if (datas.iMes < 1 || datas.iMes > 12 || datas.iAno < 10 || datas.iAno > 9999 || datas.iDia < 1 || datas.iDia > 31) 
         return 0;
     if (datas.iMes == 4 || datas.iMes == 6 || datas.iMes == 9 || datas.iMes == 11 && datas.iDia > 30)
@@ -316,6 +318,7 @@ DataQuebrada quebraData(char data[]){
 //     printf("digite uma data: ");
 //     scanf("%s", &data);
 //     resposta = q1(data);
+    
 //     //printf("%d\n", resposta);
    
    
