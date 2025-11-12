@@ -143,23 +143,29 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 
     //calcule os dados e armazene nas três variáveis a seguir
     DiasMesesAnos dma;
+    DataQuebrada idata = quebraData(datainicial);
+    DataQuebrada fdata = quebraData(datafinal);
+    int mdias = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int i = 0, f = 0;
 
     if (q1(datainicial) == 0){
       dma.retorno = 2;
       return dma;
-    }else if (q1(datafinal) == 0){
+    }
+    else if (q1(datafinal) == 0){
       dma.retorno = 3;
       return dma;
-    }else{
-      //verifique se a data final não é menor que a data inicial
-      
-      //calcule a distancia entre as datas
+    }
+    else if(idata.iAno > fdata.iAno || idata.iAno == fdata.iAno && idata.iMes > fdata.iMes || idata.iAno == fdata.iAno && idata.iMes == fdata.iMes && idata.iDia > fdata.iDia)
+    {
+        dma.retorno = 4;
+        return dma;
+    }
+    else{
+       
 
-
-      //se tudo der certo
-      dma.retorno = 1;
-      return dma;
-      
+        dma.retorno = 1;
+        return dma;
     }
     
 }
@@ -176,7 +182,32 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
  */
 int q3(char *texto, char c, int isCaseSensitive)
 {
-    int qtdOcorrencias = -1;
+    int qtdOcorrencias = 0;
+
+    if(isCaseSensitive == 1){
+        for(int x = 0; texto[x] != '\0'; x++)
+        {
+            if(texto[x] == c)
+            {
+                qtdOcorrencias++;
+            }
+        }
+    }
+    else{
+        for(int x = 0; texto[x] != '\0'; x++)
+        {
+            if(c >= 'a' && c <= 'z')
+            {
+                if(c == texto[x] || c-32 == texto[x])
+                    qtdOcorrencias++;
+            }
+            else
+            {
+                if(c == texto[x] || c+32 == texto[x])
+                    qtdOcorrencias++;
+            }
+        }
+    }
 
     return qtdOcorrencias;
 }
@@ -215,8 +246,22 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 int q5(int num)
 {
+    int m = 1;
+    int backup = num;
+    while(backup > 0)
+    {
+        backup = backup / 10;
+        m *= 10;
+    }
 
-    return num;
+    while(m != 1)
+    {
+        backup += (num % 10) * m;
+        num = num / 10;
+        m = m / 10;
+    }
+    num = backup;
+    return num/10;
 }
 
 /*
@@ -231,10 +276,25 @@ int q5(int num)
 
 int q6(int numerobase, int numerobusca)
 {
-    int qtdOcorrencias;
+     int qtdOcorrencias = 0;
+    int bk = numerobusca;
+    int m = 1;
+
+    while (bk > 0) {
+        bk /= 10;
+        m *= 10;
+    }
+
+    while (numerobase > 0) {
+        if ((numerobase % m) == numerobusca)
+            qtdOcorrencias++;
+
+        numerobase /= 10;  // avança um dígito
+    }
+
     return qtdOcorrencias;
 }
-
+   
 /*
  Q7 = jogo busca palavras
  @objetivo
@@ -246,9 +306,20 @@ int q6(int numerobase, int numerobusca)
  */
 
  int q7(char matriz[8][10], char palavra[5])
- {
-     int achou;
-     return achou;
+{       
+    int achou = 1;
+    for(int x = 0; x < 8; x++)
+    {
+        for(int y = 0; y < 10; y++)
+        {
+            if(matriz[x][y] == palavra[0])
+            {
+               if(down(x, y, matriz, palavra) == 0 ||  up(x, y, matriz, palavra) == 0 ||  left(x, y, matriz, palavra) == 0 ||  right(x, y, matriz, palavra) == 0)
+                    return achou;
+            }
+        }
+    }
+    return achou-1;       
  }
 
 
@@ -311,15 +382,62 @@ DataQuebrada quebraData(char data[]){
   return dq;
 }
 
-// int main(void)
-// {
-//     char data[50];
-//     int resposta = 0;
-//     printf("digite uma data: ");
-//     scanf("%s", &data);
-//     resposta = q1(data);
+int down(int x, int y, char matriz[8][10], char palavra[5])
+{
+    if(x + strlen(palavra) <= 8)
+    {
+        for(int a = 1; a < strlen(palavra); a++)
+        {
+            if(matriz[x+a][y] != palavra[a])
+                return -1;
+        }
+        return 0;
+    }
+    else
+        return -1;
+}
+
+int up(int x, int y, char matriz[8][10], char palavra[5])
+{
+    if(x - strlen(palavra) + 1 >= 0)
+    {
+        for(int a = 1; a < strlen(palavra); a++)
+        {
+            if(matriz[x - a][y] != palavra[a])
+                return -1;
+        }
+        return 0;
+    }
+    else
+        return -1;
+}
+
+int left(int x, int y, char matriz[8][10], char palavra[5]){
+    if(y + strlen(palavra) <= 10)
+    {
+        for(int a = 1; a < strlen(palavra); a++)
+        {
+            if(matriz[x][y+a] != palavra[a])
+                return -1;
+        }
+        return 0;
+    }
+    else
+        return -1;
+}
+
+int right(int x, int y, char matriz[8][10], char palavra[5])
+{
+    if(y - strlen(palavra) + 1 >= 0)
+    {
+        for(int a = 1; a < strlen(palavra); a++)
+        {
+            if(matriz[x][y-a] != palavra[a])
+                return -1;
+        }
+        return 0;
+    }
+    else
+        return -1;
+}
     
-//     //printf("%d\n", resposta);
-   
-   
-// }
