@@ -15,6 +15,7 @@ void testeRetornarTodosNumeros();
 void testeMudarTamanhoEstrutura();
 void testeListaEncadeada();
 
+// para compilar esse arquivo: gcc mainTeste.c trabalho2.c -o mainTeste
 int main()
 {
     inicializar();
@@ -63,7 +64,7 @@ void testeCriarEstrutura()
 void testeInserirComEstrutura()
 {
     show_log("testeInserirComEstrutura()");
-    //###  int inserirNumeroEmEstrutura(int valor, int posicao); ###
+    //###  int inserirNumeroEmEstrutura(int valor, int posicao); ###   
     printf("%d\n", inserirNumeroEmEstrutura(2, 4) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(2, -2) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(2, 6) == SUCESSO);
