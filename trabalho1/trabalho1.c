@@ -25,7 +25,7 @@
 #include <string.h>
 
 
-#include "GabrielLima20251160039.h"
+#include "trabalho1.h"
 
 DataQuebrada quebraData(char data[]);
 int ehBissexto(int ano);

@@ -2,7 +2,7 @@
 #include<string.h>
 
 //renomeie o arquivo do include abaixo para PrimeiroUltimoNomeMATRICULA.h
-#include "GabrielLima20251160039.h"
+#include "trabalho1.h"
 
 void testQ1();
 void testQ2();
@@ -13,19 +13,19 @@ void testQ6();
 void testQ7();
 
 int main(){
-    //printf("q1\n");
+    // printf("q1\n");
     testQ1(); // 10 testes
-    //printf("q2\n");
+    // printf("q2\n");
     testQ2(); // 35 testes
-    //printf("q3\n");
+    // printf("q3\n");
     testQ3(); // 13 testes
-    //printf("q4\n");
+    // printf("q4\n");
     testQ4(); // 22 testes
-    //printf("q5\n");
+    // printf("q5\n");
     testQ5(); // 10 testes
-    //printf("q6\n");
+    // printf("q6\n");
     testQ6(); // 10 testes 
-    //printf("q7\n");
+    // printf("q7\n");
     testQ7();
     
     
